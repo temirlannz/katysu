@@ -1,0 +1,19 @@
+{
+  "id": "mig_cmdboi25t9r379ptma60",
+  "parentID": "mig_cmdbo0i5t9r379ptma50",
+  "checksum": "1:a64bf4a208e6f17d5f89944c779e3e01b459ff95fb70d2eb2f939bfce8424626",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "group",
+          "type": "link",
+          "link": {
+            "table": "group"
+          }
+        },
+        "table": "student"
+      }
+    }
+  ]
+}

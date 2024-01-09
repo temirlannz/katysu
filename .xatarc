@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Temirlan-s-workspace-qp9hc0.eu-central-1.xata.sh/db/katysu",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}

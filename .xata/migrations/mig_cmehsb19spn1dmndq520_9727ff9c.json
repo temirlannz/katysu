@@ -1,0 +1,18 @@
+{
+  "id": "mig_cmehsb19spn1dmndq520",
+  "parentID": "mig_cmehs199spn1dmndq510",
+  "checksum": "1:9727ff9c463871ef49174ffdafc6b06ea0066e9d5b55f89c0acd1e6fd61a4f98",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "memberId",
+          "type": "string",
+          "notNull": true,
+          "defaultValue": "member"
+        },
+        "table": "classes"
+      }
+    }
+  ]
+}

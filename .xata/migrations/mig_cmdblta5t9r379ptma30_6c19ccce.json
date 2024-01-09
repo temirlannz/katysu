@@ -1,0 +1,18 @@
+{
+  "id": "mig_cmdblta5t9r379ptma30",
+  "parentID": "mig_cmdblhi5t9r379ptma20",
+  "checksum": "1:6c19cccedfef5c1be74e8a5b56fb75565637edf3d5ca3b16f53320e0aac7cddd",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "name",
+          "type": "string",
+          "notNull": true,
+          "defaultValue": "New group"
+        },
+        "table": "group"
+      }
+    }
+  ]
+}

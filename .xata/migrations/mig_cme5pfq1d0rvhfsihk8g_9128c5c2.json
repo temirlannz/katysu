@@ -1,0 +1,19 @@
+{
+  "id": "mig_cme5pfq1d0rvhfsihk8g",
+  "parentID": "mig_cme5p121d0rvhfsihk7g",
+  "checksum": "1:9128c5c2b5e7cc65fd75f099a9ee7f1c20bc6a778553297d1e2023397989d51f",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "classOfMember",
+          "type": "link",
+          "link": {
+            "table": "member"
+          }
+        },
+        "table": "classes"
+      }
+    }
+  ]
+}

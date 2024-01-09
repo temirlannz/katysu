@@ -1,0 +1,13 @@
+{
+  "id": "mig_cmdfejsrm560d60o9rdg",
+  "parentID": "mig_cmdfebsrm560d60o9rcg",
+  "checksum": "1:287245ab8349aa28ce2e74e43294270582dc790894cad3e186d1cd84f76d2555",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "count",
+        "table": "classes"
+      }
+    }
+  ]
+}

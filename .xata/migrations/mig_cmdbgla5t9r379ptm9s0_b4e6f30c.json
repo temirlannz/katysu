@@ -1,0 +1,11 @@
+{
+  "id": "mig_cmdbgla5t9r379ptm9s0",
+  "checksum": "1:b4e6f30c7b2de8af364c5b16d4099e44917ba5e6a59a1b334a97932fd7289ade",
+  "operations": [
+    {
+      "addTable": {
+        "table": "classes"
+      }
+    }
+  ]
+}

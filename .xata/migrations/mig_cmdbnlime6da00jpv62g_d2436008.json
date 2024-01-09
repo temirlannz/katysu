@@ -1,0 +1,16 @@
+{
+  "id": "mig_cmdbnlime6da00jpv62g",
+  "parentID": "mig_cmdbniqme6da00jpv61g",
+  "checksum": "1:d2436008523ba1985ae958e6cfcd35dd23de4cfcb126bf07c29ebe5bf49db665",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "name",
+          "type": "string"
+        },
+        "table": "student"
+      }
+    }
+  ]
+}

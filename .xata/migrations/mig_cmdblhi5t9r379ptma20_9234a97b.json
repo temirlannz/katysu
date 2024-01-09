@@ -1,0 +1,12 @@
+{
+  "id": "mig_cmdblhi5t9r379ptma20",
+  "parentID": "mig_cmdbjea5t9r379ptma0g",
+  "checksum": "1:9234a97b6ad5db3d04bf7a37a770a6ff71e7b17d16d96e316af29a9e07b62d77",
+  "operations": [
+    {
+      "addTable": {
+        "table": "group"
+      }
+    }
+  ]
+}

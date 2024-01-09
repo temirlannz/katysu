@@ -1,0 +1,18 @@
+{
+  "id": "mig_cmdbj6q5t9r379ptm9vg",
+  "parentID": "mig_cmdbj0qme6da00jpv5sg",
+  "checksum": "1:c350a3c4039107bfc3fed0a0beda68df649b0a92da167a28ac98ce069b3f2a52",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "count",
+          "type": "int",
+          "notNull": true,
+          "defaultValue": "0"
+        },
+        "table": "classes"
+      }
+    }
+  ]
+}

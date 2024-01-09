@@ -1,0 +1,13 @@
+{
+  "id": "mig_cmehs199spn1dmndq510",
+  "parentID": "mig_cme5pfq1d0rvhfsihk8g",
+  "checksum": "1:9d6e471f7cbce30333bf8a147cf556df5d90dae18807c0e176a17fcb856d361a",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "classOfMember",
+        "table": "classes"
+      }
+    }
+  ]
+}

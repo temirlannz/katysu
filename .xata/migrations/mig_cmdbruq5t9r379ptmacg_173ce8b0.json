@@ -1,0 +1,13 @@
+{
+  "id": "mig_cmdbruq5t9r379ptmacg",
+  "parentID": "mig_cmdboi25t9r379ptma60",
+  "checksum": "1:173ce8b0531a29efe0c13cf298db69655b5f4a6ee735ebcf321529a73ccd4495",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "count",
+        "table": "classes"
+      }
+    }
+  ]
+}
