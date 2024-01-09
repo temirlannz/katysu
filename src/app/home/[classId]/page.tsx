@@ -4,6 +4,7 @@ import {getXataClient} from "@/xata";
 import {columns} from "@/app/home/[classId]/columns";
 import {Button} from "@/components/ui/button";
 import {Plus} from "lucide-react";
+import NewGroup from "@/app/home/[classId]/new-group";
 
 const xata = getXataClient();
 
@@ -21,10 +22,7 @@ const Class = async ({ params }: { params: {classId: string} }) => {
             <div className='flex justify-between items-center mt-5 mb-5'>
                 <h1 className='text-xl font-medium'>Groups</h1>
 
-                <Button variant='ghost' className='gap-x-2' >
-                    <Plus size={18} />
-                    Add group
-                </Button>
+                <NewGroup />
             </div>
 
             <DataTable columns={columns} data={groups} />

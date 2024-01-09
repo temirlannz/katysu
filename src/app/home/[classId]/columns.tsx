@@ -59,10 +59,10 @@ export const columns: ColumnDef<Group>[] = [
 
             return (
                 <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
+                    <DropdownMenuTrigger asChild className='z-20'>
+                        <Button variant="ghost" className="h-8 w-8 p-0 z-20">
                             <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
+                            <MoreHorizontal className="h-4 w-4 z-20" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className='bg-[#F9F9F9]'>

@@ -19,7 +19,7 @@ import React from "react";
 import {Button} from "@/components/ui/button";
 import {usePathname, useRouter} from "next/navigation";
 import {Input} from "@/components/ui/input";
-import {Plus} from "lucide-react";
+import Link from "next/link";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -88,11 +88,15 @@ export function DataTable<TData, TValue>({
                                 <TableRow
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
-                                    onClick={() => router.replace(`http://localhost:3000/${pathname}/${row.getValue('id')}`)}
-                                    className='cursor-pointer'
+                                    // onClick={() => router.replace(`http://localhost:3000/${pathname}/${row.getValue('id')}`)}
+                                    // className='cursor-pointer'
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell key={cell.id} className='relative'>
+                                            <Link href={`${pathname}/${row.getValue('id')}`}
+                                                  className='absolute top-0 left-0 w-full h-full'
+                                            >
+                                            </Link>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
@@ -101,10 +105,7 @@ export function DataTable<TData, TValue>({
                         ) : (
                             <TableRow>
                                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    <Button variant='default' className='gap-x-2'>
-                                        <Plus size={18} />
-                                        Add group
-                                    </Button>
+                                    No groups yet.
                                 </TableCell>
                             </TableRow>
                         )}
