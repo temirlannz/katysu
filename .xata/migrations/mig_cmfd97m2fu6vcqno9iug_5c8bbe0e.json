@@ -1,0 +1,19 @@
+{
+  "id": "mig_cmfd97m2fu6vcqno9iug",
+  "parentID": "mig_cmfd947icpn6h31pn3jg",
+  "checksum": "1:5c8bbe0e058dcc5ce0e3084c09c86a75699057268e70490d1643ea3ff61adef5",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "class",
+          "type": "link",
+          "link": {
+            "table": "classes"
+          }
+        },
+        "table": "attendance"
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "mig_cmfc88e2fu6vcqno9il0",
+  "parentID": "mig_cmfc5qscp64ka5g890rg",
+  "checksum": "1:a9000f70717fac52c608a676a33779daa1e16efbce1b6395ca9e739552013684",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "date",
+          "type": "datetime",
+          "notNull": true,
+          "defaultValue": "now"
+        },
+        "table": "attendance"
+      }
+    }
+  ]
+}

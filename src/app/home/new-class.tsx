@@ -66,7 +66,13 @@ const NewClass = () => {
 
             return response;
         } catch (error) {
-            setMessage('An error occurred while uploading the image.');
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong.",
+                description: "You are not authorized.",
+            });
+
+            console.log(error)
         }
     }
 

@@ -11,6 +11,17 @@ interface PostRequestData {
     classId: string
 }
 
+interface DeleteRequestData {
+    id: string,
+    classId: string
+}
+
+interface PutRequestData {
+    groupId: string,
+    newGroupName: string,
+    classId: string
+}
+
 export async function POST(req: NextRequest) {
     const { userId, orgRole } = auth();
 
@@ -28,4 +39,40 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json(createGroup);
+}
+
+export async function DELETE(req: Request) {
+    const { userId, orgRole } = auth();
+    const data: DeleteRequestData = await req.json();
+
+    const findClass = await xata.db.classes.read(data.classId);
+    if (userId !== findClass?.memberId) {
+        return NextResponse.error();
+    }
+    const findGroup = await xata.db.group.read(data.id);
+    if (findGroup?.classes?.id !== findClass?.id) {
+        return NextResponse.error();
+    }
+
+    const deleteGroup = await xata.db.group.delete(data.id);
+
+    return NextResponse.json(deleteGroup);
+}
+
+export async function PUT(req: Request) {
+    const { userId, orgRole } = auth();
+    const data: PutRequestData = await req.json();
+
+    const findClass = await xata.db.classes.read(data.classId);
+    if (userId !== findClass?.memberId) {
+        return NextResponse.error();
+    }
+    const findGroup = await xata.db.group.read(data.groupId);
+    if (findGroup?.classes?.id !== findClass?.id) {
+        return NextResponse.error();
+    }
+
+    const editGroup = await xata.db.group.update(data.groupId, { name: data.newGroupName });
+
+    return NextResponse.json(editGroup);
 }

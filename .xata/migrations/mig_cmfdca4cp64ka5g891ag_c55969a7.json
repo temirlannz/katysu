@@ -1,0 +1,13 @@
+{
+  "id": "mig_cmfdca4cp64ka5g891ag",
+  "parentID": "mig_cmfdc7ccp64ka5g8919g",
+  "checksum": "1:c55969a7060ac86ff3e0ae7a59d37231b855c126e503a2c6a4b39b3c55c4f9ca",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "class",
+        "table": "attendance"
+      }
+    }
+  ]
+}
