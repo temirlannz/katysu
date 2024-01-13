@@ -8,8 +8,8 @@ import NewGroup from "@/app/home/[classId]/new-group";
 
 const xata = getXataClient();
 
-const getData = async (id: string) => {
-    const data = await xata.db.group.filter({ 'classes.id': id }).getMany();
+const getData = async (classId: string) => {
+    const data = await xata.db.group.filter({ 'classes.id': classId }).getMany();
 
     return data;
 }

@@ -1,0 +1,19 @@
+{
+  "id": "mig_cmgeirjh6o9m8a4ainrg",
+  "parentID": "mig_cmfdca4cp64ka5g891ag",
+  "checksum": "1:3feeb787de2dc40dedf043cd5799fc4212a0278dcb0a0c12136d88be4a7422f9",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "group",
+          "type": "link",
+          "link": {
+            "table": "group"
+          }
+        },
+        "table": "attendance"
+      }
+    }
+  ]
+}

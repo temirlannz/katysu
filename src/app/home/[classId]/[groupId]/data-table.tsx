@@ -55,16 +55,37 @@ interface studentsPresentData {
     selected: boolean
 }
 
-const getAttendance = async (classId: string, groupId: string) => {
-    const data = await axios.get('/api/attendance', {
-        data: {
-            classId,
-            groupId
-        }
-    });
-    console.log(data)
+interface records {
+    date: Date,
+    group: { id: string },
+    id: string,
+    isPresent: boolean,
+    student: { id: string },
+}
 
-    return data;
+interface getRecordsData {
+    data: records[]
+    status: number
+}
+
+const getAttendance = async (
+    classId: string,
+    groupId: string,
+    currentDate: Date | undefined,
+) => {
+    try {
+        const response: getRecordsData = await axios.get('/api/attendance', {
+            params: {
+                classId,
+                groupId,
+                currentDate
+            }
+        });
+
+        return response;
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 export function DataTable<TData extends studentPresentData, TValue>({
@@ -84,8 +105,26 @@ export function DataTable<TData extends studentPresentData, TValue>({
         []
     );
     const [students, setStudents] = useState<student[]>(data);
+    const [records, setRecords] = useState<records[] | undefined>([]);
 
-    useEffect(() => setStudents(data), [data]);
+    useEffect(() => {
+        setStudents(data);
+
+        const res = getAttendance(
+            classId,
+            groupId,
+            currentDate
+        ).then(async (records) => {
+            let rowSelectionRecord: {[index: number]: boolean} = {};
+
+            for (let i = 0; i < records.data.length; i++) {
+                rowSelectionRecord = { ...rowSelectionRecord, [i]: records.data[i].isPresent }
+            }
+            setRowSelection(rowSelectionRecord);
+            console.log(rowSelectionRecord)
+        });
+
+    }, [data, currentDate]);
 
     const table = useReactTable({
         data,
@@ -104,6 +143,7 @@ export function DataTable<TData extends studentPresentData, TValue>({
     async function saveAttendance(
         currentDate: Date | undefined | string,
         studentsAttendance: studentsPresentData[],
+        groupId: string
     ) {
         try {
             setIsLoading(true);
@@ -112,6 +152,7 @@ export function DataTable<TData extends studentPresentData, TValue>({
                 {
                     currentDate,
                     studentsAttendance,
+                    groupId
                 }
             );
             if (response.status !== 200) {
@@ -161,8 +202,9 @@ export function DataTable<TData extends studentPresentData, TValue>({
                         <PopoverContent className="w-auto p-0" align="start">
                             <Calendar
                                 mode="single"
-                                selected={new Date()}
+                                selected={currentDate}
                                 onDayClick={day => setCurrentDate(day)}
+                                onSelect={day => setCurrentDate(day)}
                                 disabled={(currentDate) =>
                                     currentDate > new Date() || currentDate < new Date("2024-1-1")
                                 }
@@ -252,6 +294,7 @@ export function DataTable<TData extends studentPresentData, TValue>({
                             await saveAttendance(
                                 currentDate,
                                 studentsAttendace,
+                                groupId
                             );
                         }}
                     >

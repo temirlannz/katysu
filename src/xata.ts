@@ -38,7 +38,10 @@ const tables = [
       { name: "count", type: "int", notNull: true, defaultValue: "0" },
       { name: "classes", type: "link", link: { table: "classes" } },
     ],
-    revLinks: [{ column: "group", table: "student" }],
+    revLinks: [
+      { column: "group", table: "student" },
+      { column: "group", table: "attendance" },
+    ],
   },
   {
     name: "student",
@@ -60,6 +63,7 @@ const tables = [
       { name: "student", type: "link", link: { table: "student" } },
       { name: "isPresent", type: "bool", notNull: true, defaultValue: "false" },
       { name: "date", type: "datetime", notNull: true, defaultValue: "now" },
+      { name: "group", type: "link", link: { table: "group" } },
     ],
   },
 ] as const;
