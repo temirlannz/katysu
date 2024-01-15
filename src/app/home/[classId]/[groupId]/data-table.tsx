@@ -19,13 +19,15 @@ import React, {useEffect, useState} from "react";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {CalendarIcon, Download, DownloadCloud, FileDown} from "lucide-react";
+import {CalendarIcon, Download, DownloadCloud, FileDown, FolderDown} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {format} from "date-fns";
 import {Calendar} from "@/components/ui/calendar";
 import axios from "axios";
 import {toast} from "@/components/ui/use-toast";
 import {usePathname} from "next/navigation";
+import * as XLSX from "xlsx";
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -88,6 +90,33 @@ const getAttendance = async (
     }
 }
 
+const exportData = (
+    students: student[],
+    rowSelection: {[index: number]: boolean},
+    currentDate: Date | undefined
+) => {
+    const alterData: {}[] = [];
+    let formObject = {};
+
+    for (let i = 0; i < students.length; i++) {
+        console.log(rowSelection)
+        formObject = {
+            name: students[i].name,
+            surname: students[i].surname,
+            isPresent: rowSelection[i] ? rowSelection[i] : false
+        }
+
+        alterData.push(formObject);
+    }
+
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(alterData);
+
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+    XLSX.writeFile(wb, `Attendance ${currentDate?.toLocaleDateString()}.xlsx`)
+}
+
 export function DataTable<TData extends studentPresentData, TValue>({
                                              columns,
                                              data,
@@ -105,6 +134,17 @@ export function DataTable<TData extends studentPresentData, TValue>({
         []
     );
     const [students, setStudents] = useState<student[]>(data);
+
+    const DataSet = [{
+        columns: ["Name", "Salary", "Sex"],
+        data: [
+            ["Johnson", 30000, "Male"],
+            ["Monika", 355000, "Female"],
+            ["Konstantina", 20000, "Female"],
+            ["John", 250000, "Male"],
+            ["Josef", 450500, "Male"],
+        ]
+    }]
 
     useEffect(() => {
         setStudents(data);
@@ -212,14 +252,29 @@ export function DataTable<TData extends studentPresentData, TValue>({
                     </Popover>
                 </div>
 
-                <Input
-                    placeholder="Filter by name..."
-                    value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) =>
-                        table.getColumn("name")?.setFilterValue(event.target.value)
-                    }
-                    className="max-w-sm"
-                />
+                <div className='flex space-x-2'>
+                    <Input
+                        placeholder="Filter by name..."
+                        value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+                        onChange={(event) =>
+                            table.getColumn("name")?.setFilterValue(event.target.value)
+                        }
+                        className="max-w-sm"
+                    />
+
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button variant='outline' onClick={() => exportData(students, rowSelection, currentDate)}>
+                                    <Download size={18} />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p className='text-muted-foreground text-xs'>Download sheet</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                </div>
             </div>
 
             <div className="rounded-md border">
@@ -239,10 +294,6 @@ export function DataTable<TData extends studentPresentData, TValue>({
                                         </TableHead>
                                     )
                                 })}
-
-                                <TableHead>
-                                    <a href='/' className='underline'>Download</a>
-                                </TableHead>
                             </TableRow>
                         ))}
                     </TableHeader>
