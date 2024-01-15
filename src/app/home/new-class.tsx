@@ -18,6 +18,7 @@ import {Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger} from "@/
 import axios from "axios";
 import {toast} from "@/components/ui/use-toast";
 import {useRouter} from "next/navigation";
+import {auth} from "@clerk/nextjs";
 
 interface responseData {
     status: number

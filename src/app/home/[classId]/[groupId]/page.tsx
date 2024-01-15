@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {Suspense} from 'react'
 import {getXataClient} from "@/xata";
 import {DataTable} from "@/app/home/[classId]/[groupId]/data-table";
 import {columns} from "@/app/home/[classId]/[groupId]/columns";
 import NewStudent from "@/app/home/[classId]/[groupId]/new-student";
+import Loading from "@/app/home/[classId]/[groupId]/loading";
 
 const xata = getXataClient();
 
@@ -21,7 +22,9 @@ const Group = async ({ params }: { params: {groupId: string, classId: string} })
                 <NewStudent />
             </div>
             
-            <DataTable columns={columns} data={group} />
+            <Suspense fallback={<Loading />}>
+                <DataTable columns={columns} data={JSON.parse(JSON.stringify(group))} />
+            </Suspense>
         </section>
     )
 }

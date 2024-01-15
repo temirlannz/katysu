@@ -1,11 +1,6 @@
 import React from 'react'
 import Link from "next/link";
-import {Button} from "@/components/ui/button";
 import {UserPlus} from "lucide-react";
-import {auth, SignIn} from "@clerk/nextjs";
-import NavbarOrganization from "@/app/components/NavbarOrganization";
-import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
-import NavbarMember from "@/app/components/NavbarMember";
 
 const NavbarAuth = () => {
 
@@ -14,7 +9,9 @@ const NavbarAuth = () => {
             <nav className='flex justify-between'>
                 <div className='flex items-center justify-between md:gap-x-12'>
                     <Link href='/' className='flex items-center gap-2'>
-                        <UserPlus />
+                        <UserPlus
+
+                        />
                         Katysu
                     </Link>
                 </div>

@@ -34,6 +34,11 @@ export async function POST(req: Request) {
         return NextResponse.error();
     }
 
+    const findMember = await xata.db.member.filter({ memberId: userId }).getFirst();
+    if (!findMember) {
+        await xata.db.member.createOrReplace({ memberId: userId });
+    }
+
     const data: PostRequestData = await req.json();
     const name = data.values.name;
 

@@ -33,9 +33,12 @@ export async function POST(req: NextRequest) {
     const name = data.values.name;
     const classId = data.classId;
 
+    const member = await xata.db.member.filter({memberId: userId}).getFirst();
+
     const createGroup = await xata.db.group.create({
         name: name,
-        classes: classId
+        classes: classId,
+        member: member
     });
 
     return NextResponse.json(createGroup);

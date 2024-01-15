@@ -25,12 +25,14 @@ const NavbarMember = () => {
                     <UserButton
                         appearance={{
                             elements: {
+                                rootBox: 'rounded-md',
+                                headerTitle: 'text-xl',
                                 userButtonPopoverCard: 'rounded-md bg-[#F9F9F9] py-4 shadow-md',
                                 avatarBox: 'w-[40px] h-[40px]',
                                 userPreview: 'px-5',
                                 userButtonPopoverActionButton: 'px-5 py-3',
                                 userButtonPopoverActionButtonText: 'text-muted-foreground',
-                                userButtonPopoverActionButtonIcon: 'text-muted-foreground'
+                                userButtonPopoverActionButtonIcon: 'text-muted-foreground',
                             }
                         }}
                         afterSignOutUrl='/'

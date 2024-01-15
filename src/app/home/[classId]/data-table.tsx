@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/table"
 import React from "react";
 import {Button} from "@/components/ui/button";
-import {usePathname, useRouter} from "next/navigation";
+import {usePathname} from "next/navigation";
 import {Input} from "@/components/ui/input";
 import Link from "next/link";
 
@@ -46,7 +46,6 @@ export function DataTable<TData, TValue>({
         }
     });
 
-    const router = useRouter();
     const pathname = usePathname();
 
     return (

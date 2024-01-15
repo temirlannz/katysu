@@ -19,7 +19,7 @@ import React, {useEffect, useState} from "react";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {CalendarIcon} from "lucide-react";
+import {CalendarIcon, Download, DownloadCloud, FileDown} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {format} from "date-fns";
 import {Calendar} from "@/components/ui/calendar";
@@ -105,7 +105,6 @@ export function DataTable<TData extends studentPresentData, TValue>({
         []
     );
     const [students, setStudents] = useState<student[]>(data);
-    const [records, setRecords] = useState<records[] | undefined>([]);
 
     useEffect(() => {
         setStudents(data);
@@ -117,11 +116,10 @@ export function DataTable<TData extends studentPresentData, TValue>({
         ).then(async (records) => {
             let rowSelectionRecord: {[index: number]: boolean} = {};
 
-            for (let i = 0; i < records.data.length; i++) {
-                rowSelectionRecord = { ...rowSelectionRecord, [i]: records.data[i].isPresent }
+            for (let i = 0; i < records!.data.length; i++) {
+                rowSelectionRecord = { ...rowSelectionRecord, [i]: records!.data[i].isPresent }
             }
             setRowSelection(rowSelectionRecord);
-            console.log(rowSelectionRecord)
         });
 
     }, [data, currentDate]);
@@ -241,6 +239,10 @@ export function DataTable<TData extends studentPresentData, TValue>({
                                         </TableHead>
                                     )
                                 })}
+
+                                <TableHead>
+                                    <a href='/' className='underline'>Download</a>
+                                </TableHead>
                             </TableRow>
                         ))}
                     </TableHeader>
@@ -274,7 +276,7 @@ export function DataTable<TData extends studentPresentData, TValue>({
                     <Button
                         variant={ currentDate ? 'default' : 'outline' }
                         className='mr-2 disabled:opacity-100 disabled:text-muted-foreground disabled:font-medium'
-                        disabled={!currentDate || isLoading}
+                        disabled={!currentDate || isLoading || students.length === 0}
                         onClick={async () => {
 
                             // RETURN SELECTED STUDENTS

@@ -1,13 +1,14 @@
-import React from 'react'
+import React, {Suspense} from 'react'
 import {getXataClient} from "@/xata";
 import {DataTable} from "@/app/home/data-table";
-import {columns, Class} from "@/app/home/columns";
+import {columns} from "@/app/home/columns";
 import {auth} from "@clerk/nextjs";
 import NewClass from "@/app/home/new-class";
+import Loading from "@/app/home/loading";
 
 const xata = getXataClient();
 
-async function getData(): Promise<Class[]> {
+async function getData() {
     const { userId } = auth();
 
     return await xata.db.classes.filter({ 'memberId': `${userId}` }).getMany();
@@ -24,7 +25,9 @@ const Home = async () => {
                 <NewClass />
             </div>
 
-            <DataTable columns={columns} data={data} />
+            <Suspense fallback={<Loading />}>
+                <DataTable columns={columns} data={data} />
+            </Suspense>
         </section>
     )
 }
