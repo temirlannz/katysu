@@ -17,12 +17,7 @@ const tables = [
         defaultValue: "New class",
       },
       { name: "count", type: "int", notNull: true, defaultValue: "0" },
-      {
-        name: "memberId",
-        type: "string",
-        notNull: true,
-        defaultValue: "member",
-      },
+      { name: "memberId", type: "string", notNull: true, defaultValue: "0" },
     ],
     revLinks: [{ column: "classes", table: "group" }],
   },
@@ -37,8 +32,12 @@ const tables = [
       },
       { name: "count", type: "int", notNull: true, defaultValue: "0" },
       { name: "classes", type: "link", link: { table: "classes" } },
+      { name: "member", type: "link", link: { table: "member" } },
     ],
-    revLinks: [{ column: "group", table: "student" }],
+    revLinks: [
+      { column: "group", table: "student" },
+      { column: "group", table: "attendance" },
+    ],
   },
   {
     name: "student",
@@ -52,8 +51,24 @@ const tables = [
       },
       { name: "group", type: "link", link: { table: "group" } },
     ],
+    revLinks: [{ column: "student", table: "attendance" }],
   },
-  { name: "member", columns: [] },
+  {
+    name: "attendance",
+    columns: [
+      { name: "student", type: "link", link: { table: "student" } },
+      { name: "isPresent", type: "bool", notNull: true, defaultValue: "false" },
+      { name: "date", type: "datetime", notNull: true, defaultValue: "now" },
+      { name: "group", type: "link", link: { table: "group" } },
+    ],
+  },
+  {
+    name: "member",
+    columns: [
+      { name: "memberId", type: "string", notNull: true, defaultValue: "0" },
+    ],
+    revLinks: [{ column: "member", table: "group" }],
+  },
 ] as const;
 
 export type SchemaTables = typeof tables;
@@ -68,6 +83,9 @@ export type GroupRecord = Group & XataRecord;
 export type Student = InferredTypes["student"];
 export type StudentRecord = Student & XataRecord;
 
+export type Attendance = InferredTypes["attendance"];
+export type AttendanceRecord = Attendance & XataRecord;
+
 export type Member = InferredTypes["member"];
 export type MemberRecord = Member & XataRecord;
 
@@ -75,6 +93,7 @@ export type DatabaseSchema = {
   classes: ClassesRecord;
   group: GroupRecord;
   student: StudentRecord;
+  attendance: AttendanceRecord;
   member: MemberRecord;
 };
 

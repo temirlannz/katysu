@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import {MoreHorizontal} from "lucide-react";
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/dialog";
 import {Label} from "@radix-ui/react-menu";
 import {Input} from "@/components/ui/input";
+import {getXataClient} from "@/xata";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -112,6 +113,8 @@ async function deleteClass (classId: string) {
     }
 }
 
+let groupOfId: string[] = [];
+
 export const columns: ColumnDef<Class>[] = [
     {
         accessorKey: "id",
@@ -124,6 +127,28 @@ export const columns: ColumnDef<Class>[] = [
     {
         accessorKey: "count",
         header: "Group count",
+        cell: ({ row }) => {
+
+            groupOfId.push(row.getValue('id'));
+            groupOfId = groupOfId.filter((id, index) => groupOfId.indexOf(id) === index);
+
+            const [count, setCount] = useState<number[]>([]);
+
+            useEffect(() => {
+                async function getCount() {
+                    const response = await axios.get(
+                        '/api/class',
+                        { params: groupOfId }
+                    ).then(data => setCount(data.data))
+                }
+
+                getCount();
+            }, []);
+
+            row.original.count = count[0]
+
+            return row.original.count
+        }
     },
     {
         accessorKey: "xata.createdAt",

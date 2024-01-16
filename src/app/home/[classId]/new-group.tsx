@@ -17,7 +17,7 @@ import {Input} from "@/components/ui/input";
 import {Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger} from "@/components/ui/dialog";
 import axios from "axios";
 import {toast} from "@/components/ui/use-toast";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import {auth} from "@clerk/nextjs";
 
 interface responseData {
@@ -34,9 +34,10 @@ const formSchema = z.object({
     name: z.string().min(2).max(20),
 });
 
-const NewClass = () => {
+const NewGroup = () => {
     const [message, setMessage] = useState<string>('');
     const router = useRouter();
+    const pathname = usePathname();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -47,9 +48,14 @@ const NewClass = () => {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
+            const classId = pathname.replace('/home/', '');
+
             const response: responseData = await axios.post(
-                'http://localhost:3000/api/class',
-                {values}
+                'http://localhost:3000/api/group',
+                {
+                    values,
+                    classId,
+                }
             );
             if (response.status !== 200) {
                 toast({
@@ -61,19 +67,13 @@ const NewClass = () => {
                 router.refresh();
 
                 toast({
-                    description: `Class ${response.data.name} has been created.`,
+                    description: `Group ${response.data.name} has been created.`,
                 });
             }
 
             return response;
         } catch (error) {
-            toast({
-                variant: "destructive",
-                title: "Uh oh! Something went wrong.",
-                description: "You are not authorized.",
-            });
-
-            console.log(error)
+            setMessage('An error occurred while uploading the image.');
         }
     }
 
@@ -82,13 +82,13 @@ const NewClass = () => {
             <DialogTrigger asChild>
                 <Button variant='ghost' className='gap-x-2' >
                     <Plus size={18} />
-                    New class
+                    Add group
                 </Button>
             </DialogTrigger>
 
 
             <DialogContent>
-                <DialogTitle>Add new class</DialogTitle>
+                <DialogTitle>Add group</DialogTitle>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                         <FormField
@@ -98,7 +98,7 @@ const NewClass = () => {
                                 <FormItem>
                                     {/*<FormLabel>Add new class</FormLabel>*/}
                                     <FormControl>
-                                        <Input placeholder="Class name" {...field} />
+                                        <Input placeholder="Group name" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -113,4 +113,4 @@ const NewClass = () => {
         </Dialog>
     )
 }
-export default NewClass
+export default NewGroup

@@ -11,7 +11,8 @@ export default function CreateOrganizationPage() {
                     elements: {
                         card: 'rounded-md bg-[#F9F9F9] border shadow-none border-gray-200',
                         headerTitle: 'text-xl',
-                        formFieldInput: 'bg-[#F9F9F9]'
+                        formFieldInput: 'bg-[#F9F9F9]',
+                        formButtonPrimary: 'bg-primary disabled:opacity-50 text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2'
                     }
                 }}
             />

@@ -2,10 +2,11 @@ import React from 'react'
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {UserPlus} from "lucide-react";
-import {auth, SignIn} from "@clerk/nextjs";
+import {auth} from "@clerk/nextjs";
 import NavbarOrganization from "@/app/components/NavbarOrganization";
-import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
 import NavbarMember from "@/app/components/NavbarMember";
+import {usePathname} from "next/navigation";
+import NavbarAuth from "@/app/components/NavbarAuth";
 
 const Navbar = async () => {
     const { userId, orgRole } = auth();

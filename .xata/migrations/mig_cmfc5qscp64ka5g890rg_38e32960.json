@@ -1,0 +1,18 @@
+{
+  "id": "mig_cmfc5qscp64ka5g890rg",
+  "parentID": "mig_cmfc5fccp64ka5g890qg",
+  "checksum": "1:38e329603ec6c6ec32bbdcd1aa783e817be57fdc52f73bd37a15d49b69f80013",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "isPresent",
+          "type": "bool",
+          "notNull": true,
+          "defaultValue": "false"
+        },
+        "table": "attendance"
+      }
+    }
+  ]
+}

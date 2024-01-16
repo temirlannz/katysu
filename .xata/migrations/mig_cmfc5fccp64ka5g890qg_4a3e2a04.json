@@ -1,0 +1,19 @@
+{
+  "id": "mig_cmfc5fccp64ka5g890qg",
+  "parentID": "mig_cmfc317icpn6h31pn310",
+  "checksum": "1:4a3e2a04ff1bfc52032ee39519d3f80647fe1f1e390219e846b7d99a103a995e",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "student",
+          "type": "link",
+          "link": {
+            "table": "student"
+          }
+        },
+        "table": "attendance"
+      }
+    }
+  ]
+}

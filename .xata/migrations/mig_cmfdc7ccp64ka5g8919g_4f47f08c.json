@@ -1,0 +1,13 @@
+{
+  "id": "mig_cmfdc7ccp64ka5g8919g",
+  "parentID": "mig_cmfd97m2fu6vcqno9iug",
+  "checksum": "1:4f47f08c2d28daf0a144b24c64cb4c4d24e92a426c44556be5255b1d0bd179ef",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "group",
+        "table": "attendance"
+      }
+    }
+  ]
+}

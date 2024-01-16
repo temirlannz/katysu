@@ -1,0 +1,13 @@
+{
+  "id": "mig_cmfc317icpn6h31pn310",
+  "parentID": "mig_cmehsb19spn1dmndq520",
+  "checksum": "1:07275a1b8703d1d32fc2ead1a112c1fc72a57ea7550ab9a2995582c179742652",
+  "operations": [
+    {
+      "renameTable": {
+        "newName": "attendance",
+        "oldName": "member"
+      }
+    }
+  ]
+}

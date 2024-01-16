@@ -17,9 +17,7 @@ import {
 } from "@/components/ui/table"
 import React from "react";
 import {Button} from "@/components/ui/button";
-import {useRouter} from "next/navigation";
 import {Input} from "@/components/ui/input";
-import {Plus} from "lucide-react";
 import Link from "next/link";
 
 interface DataTableProps<TData, TValue> {
@@ -46,8 +44,6 @@ export function DataTable<TData, TValue>({
             columnFilters
         }
     });
-
-    const router = useRouter();
 
     return (
         <div>
@@ -88,10 +84,6 @@ export function DataTable<TData, TValue>({
                                 <TableRow
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
-                                    // onClick={(event) => {
-                                    //     event.preventDefault()
-                                    //     router.push(`/home/${row.getValue('id')}`)
-                                    // }}
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id} className='relative'>
