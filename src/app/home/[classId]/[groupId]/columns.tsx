@@ -282,7 +282,7 @@ export const columns: ColumnDef<Student>[] = [
                                 <AlertDialogHeader>
                                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                                     <AlertDialogDescription>
-                                        This action cannot be undone. This will permanently delete '{row.getValue('name')} {row.getValue('surname')}'
+                                        This action cannot be undone. This will permanently delete &apos;{row.getValue('name')} {row.getValue('surname')}&apos;
                                         and remove your data from our servers.
                                     </AlertDialogDescription>
                                 </AlertDialogHeader>

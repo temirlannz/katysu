@@ -162,7 +162,7 @@ export const columns: ColumnDef<Class>[] = [
     },
     {
         id: "actions",
-        cell: ({ row }) => {
+        cell: function CellFn ({ row }) {
             const router = useRouter();
             const [className, setClassName] = useState<string>('');
 
@@ -231,7 +231,7 @@ export const columns: ColumnDef<Class>[] = [
                                 <AlertDialogHeader>
                                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                                     <AlertDialogDescription>
-                                        This action cannot be undone. This will permanently delete '{row.getValue('name')}'
+                                        This action cannot be undone. This will permanently delete &apos;{row.getValue('name')}&apos;
                                         and remove your data from our servers.
                                     </AlertDialogDescription>
                                 </AlertDialogHeader>
