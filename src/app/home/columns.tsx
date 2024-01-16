@@ -127,7 +127,7 @@ export const columns: ColumnDef<Class>[] = [
     {
         accessorKey: "count",
         header: "Group count",
-        cell: ({ row }) => {
+        cell: function CellFn ({ row }) {
 
             groupOfId.push(row.getValue('id'));
             groupOfId = groupOfId.filter((id, index) => groupOfId.indexOf(id) === index);
@@ -198,7 +198,7 @@ export const columns: ColumnDef<Class>[] = [
                                     <DialogHeader>
                                         <DialogTitle>Edit class name</DialogTitle>
                                         <DialogDescription>
-                                            Make changes to your class name here. Click save when you're done.
+                                            Make changes to your class name here. Click save when you&apos;re done.
                                         </DialogDescription>
                                     </DialogHeader>
                                     <div className="grid gap-4 py-4">

@@ -191,7 +191,7 @@ export const columns: ColumnDef<Student>[] = [
     },
     {
         id: "actions",
-        cell: ({ row }) => {
+        cell: function CellFn ({ row }) {
             const [studentName, setStudentName] = useState<string>('');
             const [studentSurname, setStudentSurname] = useState<string>('');
             const pathname = usePathname();
@@ -239,7 +239,7 @@ export const columns: ColumnDef<Student>[] = [
                                     <DialogHeader>
                                         <DialogTitle>Edit student name</DialogTitle>
                                         <DialogDescription>
-                                            Make changes to your student name and surname here. Click save when you're done.
+                                            Make changes to your student name and surname here. Click save when you&apos;re done.
                                         </DialogDescription>
                                     </DialogHeader>
                                     <div className="grid gap-4 py-4">

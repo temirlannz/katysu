@@ -8,7 +8,6 @@ import {redirect} from "next/navigation";
 
 const Organizations = async () => {
     const {  userId, orgId, orgRole } = auth();
-    console.log(orgId)
 
     return (
         <section className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>

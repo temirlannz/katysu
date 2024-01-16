@@ -18,7 +18,7 @@ const Features = () => {
                         Everything you need to run your books.
                     </h2>
                     <p className="mt-6 text-lg tracking-tight text-blue-100">
-                        Well everything you need if you aren’t that picky about minor details like tax compliance.
+                        Well everything you need if you aren&apos;t that picky about minor details like tax compliance.
                     </p>
                 </div>
 
@@ -28,28 +28,28 @@ const Features = () => {
                             <div className='group relative rounded-full px-4 py-1 lg:rounded-l-xl lg:rounded-r-none lg:p-6 bg-white lg:bg-white/10 lg:ring-1 lg:ring-inset lg:ring-white/10'>
                                 <h3 className='text-white'>Payroll</h3>
                                 <p className="mt-2 hidden text-sm lg:block text-white">
-                                    Keep track of everyone's salaries and whether or not they've been paid. Direct deposit not supported.
+                                    Keep track of everyone&apos;s salaries and whether or not they&apos;ve been paid. Direct deposit not supported.
                                 </p>
                             </div>
 
                             <div className='group relative rounded-full px-4 py-1 lg:rounded-l-xl lg:rounded-r-none lg:p-6 hover:bg-white/10 lg:hover:bg-white/5'>
                                 <h3 className='text-white'>Payroll</h3>
                                 <p className="mt-2 hidden text-sm lg:block text-white">
-                                    Keep track of everyone's salaries and whether or not they've been paid. Direct deposit not supported.
+                                    Keep track of everyone&apos;s salaries and whether or not they&apos;ve been paid. Direct deposit not supported.
                                 </p>
                             </div>
 
                             <div className='group relative rounded-full px-4 py-1 lg:rounded-l-xl lg:rounded-r-none lg:p-6 hover:bg-white/10 lg:hover:bg-white/5'>
                                 <h3 className='text-white'>Payroll</h3>
                                 <p className="mt-2 hidden text-sm lg:block text-white">
-                                    Keep track of everyone's salaries and whether or not they've been paid. Direct deposit not supported.
+                                    Keep track of everyone&apos;s salaries and whether or not they&apos;ve been paid. Direct deposit not supported.
                                 </p>
                             </div>
 
                             <div className='group relative rounded-full px-4 py-1 lg:rounded-l-xl lg:rounded-r-none lg:p-6 hover:bg-white/10 lg:hover:bg-white/5'>
                                 <h3 className='text-white'>Payroll</h3>
                                 <p className="mt-2 hidden text-sm lg:block text-white">
-                                    Keep track of everyone's salaries and whether or not they've been paid. Direct deposit not supported.
+                                    Keep track of everyone&apos;s salaries and whether or not they&apos;ve been paid. Direct deposit not supported.
                                 </p>
                             </div>
                         </div>

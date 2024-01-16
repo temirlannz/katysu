@@ -256,7 +256,7 @@ export function DataTable<TData extends studentPresentData, TValue>({
                                 <Button
                                     variant='outline'
                                     onClick={() => exportData(students, rowSelection, currentDate)}
-                                    disabled={!currentDate}
+                                    disabled={!currentDate || students.length === 0}
                                 >
                                     <Download size={18} />
                                 </Button>

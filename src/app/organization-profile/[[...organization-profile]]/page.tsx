@@ -23,7 +23,8 @@ const OrganizationProfilePage = () => {
                         navbar: 'border-r-0',
                         headerTitle: 'text-xl',
                         headerSubtitle: 'text-sm text-muted-foreground',
-                        navbarButton: 'font-light'
+                        navbarButton: 'font-light',
+                        membersPageInviteButton: 'disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2'
                     }
                 }}
             />
