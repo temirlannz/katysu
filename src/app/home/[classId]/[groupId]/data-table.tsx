@@ -126,7 +126,6 @@ export function DataTable<TData extends studentPresentData, TValue>({
     const classId: string = classAndGroupId[0];
     const groupId: string = classAndGroupId[1];
 
-
     const [rowSelection, setRowSelection] = React.useState({});
     const [currentDate, setCurrentDate] = useState<Date | undefined>(new Date(new Date().setHours(0,0,0,0)));
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -134,17 +133,6 @@ export function DataTable<TData extends studentPresentData, TValue>({
         []
     );
     const [students, setStudents] = useState<student[]>(data);
-
-    const DataSet = [{
-        columns: ["Name", "Salary", "Sex"],
-        data: [
-            ["Johnson", 30000, "Male"],
-            ["Monika", 355000, "Female"],
-            ["Konstantina", 20000, "Female"],
-            ["John", 250000, "Male"],
-            ["Josef", 450500, "Male"],
-        ]
-    }]
 
     useEffect(() => {
         setStudents(data);
@@ -265,7 +253,11 @@ export function DataTable<TData extends studentPresentData, TValue>({
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <Button variant='outline' onClick={() => exportData(students, rowSelection, currentDate)}>
+                                <Button
+                                    variant='outline'
+                                    onClick={() => exportData(students, rowSelection, currentDate)}
+                                    disabled={!currentDate}
+                                >
                                     <Download size={18} />
                                 </Button>
                             </TooltipTrigger>

@@ -49,7 +49,9 @@ const NavbarOrganization = () => {
                         afterLeaveOrganizationUrl='/organizations'
                         appearance={{
                             elements: {
-                                organizationSwitcherPopoverCard: 'rounded-md'
+                                organizationSwitcherPopoverCard: 'rounded-md',
+                                rootBox: 'relative w-[215px] h-full',
+                                organizationSwitcherTrigger: 'absolute w-full h-full left-0 top-0'
                             }
                         }}
                     />

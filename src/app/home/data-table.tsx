@@ -84,10 +84,6 @@ export function DataTable<TData, TValue>({
                                 <TableRow
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
-                                    // onClick={(event) => {
-                                    //     event.preventDefault()
-                                    //     router.push(`/home/${row.getValue('id')}`)
-                                    // }}
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id} className='relative'>

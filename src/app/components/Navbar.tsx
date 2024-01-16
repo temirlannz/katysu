@@ -5,6 +5,8 @@ import {UserPlus} from "lucide-react";
 import {auth} from "@clerk/nextjs";
 import NavbarOrganization from "@/app/components/NavbarOrganization";
 import NavbarMember from "@/app/components/NavbarMember";
+import {usePathname} from "next/navigation";
+import NavbarAuth from "@/app/components/NavbarAuth";
 
 const Navbar = async () => {
     const { userId, orgRole } = auth();

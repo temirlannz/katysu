@@ -1,6 +1,6 @@
 import {getXataClient} from "@/xata";
 import {auth} from "@clerk/nextjs";
-import {NextResponse} from "next/server";
+import {NextRequest, NextResponse} from "next/server";
 
 const xata = getXataClient();
 
@@ -82,4 +82,26 @@ export async function PUT(req: Request) {
 
 
     return NextResponse.json(editClass);
+}
+
+export async function GET(req: NextRequest) {
+    const groupOfId = req.nextUrl.searchParams;
+    const idArr: string[] = [];
+    let count: number[] = [];
+
+    groupOfId.forEach(item => {
+        idArr.push(item)
+    });
+
+    for (let i = 0; i < idArr.length; i++) {
+        const groups = await xata.db.group.filter({ classes: idArr[i] }).summarize({
+            summaries: {
+                "total": {"count": "*"}
+            }
+        });
+
+        count.push(groups.summaries[0].total);
+    }
+
+    return NextResponse.json(count);
 }
