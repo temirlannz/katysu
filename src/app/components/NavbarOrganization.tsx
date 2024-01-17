@@ -14,24 +14,24 @@ const NavbarOrganization = () => {
         <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
             <nav className='flex justify-between h-[36px]'>
                 <div className='flex items-center justify-between md:gap-x-12'>
-                    <Link href='/organizations' className='flex items-center gap-2 text-sm font-medium'>
+                    <Link href='/organization' className='flex items-center gap-2 text-sm font-medium'>
                         <UserPlus />
                         Katysu
                     </Link>
 
                     <div className="hidden md:flex md:gap-x-6">
-                        <Link href='/organizations'
+                        <Link href='/organization'
                               className={
                                 twMerge(`text-sm hover:text-black transition`,
                                 `${
                                     pathname === '/organization-profile' || 
                                     pathname === '/organization-profile/organization-settings' ||
-                                    pathname === '/organizations'    
+                                    pathname === '/organization'    
                                         ? 'text-black' 
                                         : 'text-muted-foreground'
                                 }`)}
                         >
-                            Organizations
+                            Organization
                         </Link>
 
                         <Link href='/create-organization'

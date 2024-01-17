@@ -5,7 +5,7 @@ import {NextResponse} from "next/server";
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
 const adminRoutes = [
-    '/organizations',
+    '/organization',
     '/organization-profile',
     '/create-organization'
 ];
@@ -19,14 +19,14 @@ export default authMiddleware({
         }
 
         const redirectMember = new URL('/home', req.url);
-        const redirectAdmin = new URL('/organizations', req.url);
+        const redirectAdmin = new URL('/organization', req.url);
 
         if (auth.isPublicRoute && auth.userId) {
             return NextResponse.redirect(redirectMember);
         }
 
         // IF MEMBER TRIES TO ACCESS ADMIN ROUTES REDIRECT TO /HOME
-        if (req.nextUrl.pathname === '/organizations' && auth.orgRole === 'org:member') {
+        if (req.nextUrl.pathname === '/organization' && auth.orgRole === 'org:member') {
             return NextResponse.redirect(redirectMember);
         }
 

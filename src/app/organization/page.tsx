@@ -6,7 +6,7 @@ import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import {redirect} from "next/navigation";
 
-const Organizations = async () => {
+const Organization = async () => {
     const {  userId, orgId, orgRole } = auth();
 
     return (
@@ -39,4 +39,4 @@ const Organizations = async () => {
         </section>
     )
 }
-export default Organizations
+export default Organization
