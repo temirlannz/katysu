@@ -1,15 +1,22 @@
+'use client';
+
 import React from 'react'
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {UserPlus} from "lucide-react";
-import {auth} from "@clerk/nextjs";
+import {auth, useAuth} from "@clerk/nextjs";
 import NavbarOrganization from "@/app/components/NavbarOrganization";
 import NavbarMember from "@/app/components/NavbarMember";
-import {usePathname} from "next/navigation";
 import NavbarAuth from "@/app/components/NavbarAuth";
+import {usePathname} from "next/navigation";
 
-const Navbar = async () => {
-    const { userId, orgRole } = auth();
+const Navbar = () => {
+    const { userId, orgRole } = useAuth();
+    const pathname = usePathname();
+
+    if (pathname === '/sign-in' || pathname === '/sign-up') {
+        return <NavbarAuth />
+    }
 
     if (userId && orgRole === 'org:member') {
         return <NavbarMember />
