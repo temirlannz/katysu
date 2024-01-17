@@ -39,7 +39,9 @@ const OrganizationProfilePage = () => {
                         menuList__member: 'bg-[#F9F9F9] shadow-md h-[40px] p-0 rounded-md',
                         menuItem__member: 'rounded-md h-full',
                         selectOptionsContainer__role: 'bg-[#F9F9F9] shadow-md',
-                        navbarButton__members: 'font-normal'
+                        navbarButton__members: 'font-normal',
+                        formButtonPrimary: 'disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2',
+                        formButtonReset: 'disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2'
                     }
                 }}
             />
