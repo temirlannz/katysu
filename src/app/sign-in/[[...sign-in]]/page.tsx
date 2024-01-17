@@ -16,6 +16,7 @@ const Page = () => {
                             formButtonPrimary: 'bg-primary hover:bg-primary/90'
                         }
                     }}
+                    signUpUrl='/sign-up'
                 />
             </ClerkLoaded>
         </section>
