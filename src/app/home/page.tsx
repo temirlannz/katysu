@@ -2,9 +2,10 @@ import React, {Suspense} from 'react'
 import {getXataClient} from "@/xata";
 import {DataTable} from "@/app/home/data-table";
 import {columns} from "@/app/home/columns";
-import {auth} from "@clerk/nextjs";
+import {auth, currentUser} from "@clerk/nextjs";
 import NewClass from "@/app/home/new-class";
 import Loading from "@/app/home/loading";
+import {redirect} from "next/navigation";
 
 const xata = getXataClient();
 
@@ -15,6 +16,12 @@ async function getData() {
 }
 
 const Home = async () => {
+    const user = await currentUser();
+
+    if (!user) {
+        redirect('/');
+    }
+
     const data = await getData();
 
     return (

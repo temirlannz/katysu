@@ -17,6 +17,7 @@ const Page = () => {
                         }
                     }}
                     signUpUrl='/sign-up'
+                    afterSignInUrl='/organization'
                 />
             </ClerkLoaded>
         </section>

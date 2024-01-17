@@ -14,7 +14,9 @@ const Navbar = () => {
     const { userId, orgRole } = useAuth();
     const pathname = usePathname();
 
-    if (pathname === '/sign-in' || pathname === '/sign-up') {
+    if (pathname === '/sign-in' ||
+        pathname === '/sign-up' ||
+        pathname === '/sign-in/factor-one') {
         return <NavbarAuth />
     }
 

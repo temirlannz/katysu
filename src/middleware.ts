@@ -11,7 +11,12 @@ const adminRoutes = [
 ];
 
 export default authMiddleware({
-    publicRoutes: ['/', '/sign-in', '/sign-up'],
+    publicRoutes: [
+        '/',
+        '/sign-in',
+        '/sign-up',
+        '/sign-in/factor-one',
+    ],
     afterAuth(auth, req,  evt ) {
         // REDIRECT NON AUTHORIZED USER
         if (!auth.userId && !auth.isPublicRoute) {
