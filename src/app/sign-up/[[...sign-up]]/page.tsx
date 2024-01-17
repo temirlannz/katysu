@@ -1,17 +1,23 @@
 import React from 'react'
-import {SignUp} from "@clerk/nextjs";
+import {ClerkLoaded, ClerkLoading, SignUp} from "@clerk/nextjs";
+import LoadingAuth from "@/app/components/LoadingAuth";
 
 const Page = () => {
     return (
         <section className='flex justify-center items-center h-[calc(100vh-120px)]'>
-            <SignUp
-                appearance={{
-                    elements: {
-                        card: 'rounded-md shadow-md',
-                        formButtonPrimary: 'bg-primary hover:bg-primary/90'
-                    }
-                }}
-            />
+            <ClerkLoading>
+                <LoadingAuth />
+            </ClerkLoading>
+            <ClerkLoaded>
+                <SignUp
+                    appearance={{
+                        elements: {
+                            card: 'rounded-md shadow-md',
+                            formButtonPrimary: 'bg-primary hover:bg-primary/90'
+                        }
+                    }}
+                />
+            </ClerkLoaded>
         </section>
     )
 }
