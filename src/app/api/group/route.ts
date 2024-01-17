@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
 export async function DELETE(req: Request) {
     const { userId, orgRole } = auth();
     const data: DeleteRequestData = await req.json();
+    console.log(data)
 
     const findClass = await xata.db.classes.read(data.classId);
     if (userId !== findClass?.memberId) {
@@ -56,6 +57,9 @@ export async function DELETE(req: Request) {
     if (findGroup?.classes?.id !== findClass?.id) {
         return NextResponse.error();
     }
+
+    const findStudents = await xata.db.student.filter({ group: data.id }).getMany()
+    const deleteStudents = await xata.db.student.delete(findStudents);
 
     const deleteGroup = await xata.db.group.delete(data.id);
 

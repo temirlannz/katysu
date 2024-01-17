@@ -59,6 +59,14 @@ export async function DELETE(req: Request) {
         return NextResponse.error();
     }
 
+    const findGroups = await xata.db.group.filter({ classes: data.id }).getMany();
+
+    for (let i = 0; i < findGroups.length; i++) {
+        const findStudents = await xata.db.student.filter({ group: findGroups[i].id }).getMany();
+        const deleteStudents = await xata.db.student.delete(findStudents);
+    }
+
+    const deleteGroup = await xata.db.group.delete(findGroups);
     const deleteClass = await xata.db.classes.delete(data.id);
 
     return NextResponse.json(deleteClass);
