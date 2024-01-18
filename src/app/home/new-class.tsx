@@ -52,7 +52,7 @@ const NewClass = () => {
         try {
             setIsLoading(true);
             const response: responseData = await axios.post(
-                'http://localhost:3000/api/class',
+                '/api/class',
                 {values}
             );
             if (response.status !== 200) {
