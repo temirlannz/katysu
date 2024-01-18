@@ -75,6 +75,9 @@ export async function DELETE(req: Request) {
         return NextResponse.error();
     }
 
+    const findAttendance = await xata.db.attendance.filter({ student: data.studentId }).getMany();
+    const deleteAttendance = await xata.db.attendance.delete(findAttendance);
+
     const deleteStudent = await xata.db.student.delete(data.studentId);
 
     return NextResponse.json(deleteStudent);

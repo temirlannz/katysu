@@ -47,7 +47,6 @@ export async function POST(req: NextRequest) {
 export async function DELETE(req: Request) {
     const { userId, orgRole } = auth();
     const data: DeleteRequestData = await req.json();
-    console.log(data)
 
     const findClass = await xata.db.classes.read(data.classId);
     if (userId !== findClass?.memberId) {
@@ -59,8 +58,13 @@ export async function DELETE(req: Request) {
     }
 
     const findStudents = await xata.db.student.filter({ group: data.id }).getMany()
-    const deleteStudents = await xata.db.student.delete(findStudents);
 
+   for (let i = 0; i < findStudents.length; i++) {
+       const findAttendance = await xata.db.attendance.filter({ student: findStudents[i].id }).getMany();
+       const deleteAttendance = await xata.db.attendance.delete(findAttendance);
+   }
+
+    const deleteStudents = await xata.db.student.delete(findStudents);
     const deleteGroup = await xata.db.group.delete(data.id);
 
     return NextResponse.json(deleteGroup);

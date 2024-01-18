@@ -63,6 +63,12 @@ export async function DELETE(req: Request) {
 
     for (let i = 0; i < findGroups.length; i++) {
         const findStudents = await xata.db.student.filter({ group: findGroups[i].id }).getMany();
+
+        for (let j = 0; j < findStudents.length; j++) {
+            const findAttendance = await xata.db.attendance.filter({ student: findStudents[j].id }).getMany();
+            const deleteAttendance = await xata.db.attendance.delete(findAttendance);
+        }
+
         const deleteStudents = await xata.db.student.delete(findStudents);
     }
 
