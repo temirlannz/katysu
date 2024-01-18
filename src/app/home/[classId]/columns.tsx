@@ -32,6 +32,7 @@ import {Label} from "@/components/ui/label";
 import {usePathname, useRouter} from "next/navigation";
 import axios from "axios";
 import {toast} from "@/components/ui/use-toast";
+import Spinner from "@/components/ui/spinner";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -46,76 +47,6 @@ export type Group = {
     }
     classes: {
         id: string
-    }
-}
-
-async function editGroup (
-    groupId: string,
-    newGroupName: string,
-    event: FormEvent,
-    classId: string
-) {
-    event.preventDefault();
-
-    try {
-        const response = await axios.put(
-            '/api/group',
-            { groupId, newGroupName, classId }
-        );
-
-        if (response.status !== 200) {
-            toast({
-                variant: "destructive",
-                title: "Uh oh! Something went wrong.",
-                description: "There was a problem with your request.",
-            });
-
-            console.log(response);
-        } else {
-            toast({
-                description: `Group has been edited to '${response.data.name}'.`,
-            });
-        }
-    } catch (err) {
-        toast({
-            variant: "destructive",
-            title: "Uh oh! Something went wrong.",
-            description: "You are not authorized.",
-        });
-
-        console.log(err)
-    }
-}
-
-async function deleteGroup (groupId: string, classId: string) {
-    try {
-        const response = await axios.delete(
-            '/api/group',
-            {
-                data: { id: groupId, classId }
-            }
-        );
-        if (response.status !== 200) {
-            toast({
-                variant: "destructive",
-                title: "Uh oh! Something went wrong.",
-                description: "There was a problem with your request.",
-            });
-
-            console.log(response);
-        } else {
-            toast({
-                description: `Group '${response.data.name}' has been deleted.`,
-            });
-        }
-    } catch (err) {
-        toast({
-            variant: "destructive",
-            title: "Uh oh! Something went wrong.",
-            description: "You are not authorized.",
-        });
-
-        console.log(err)
     }
 }
 
@@ -149,11 +80,98 @@ export const columns: ColumnDef<Group>[] = [
             const pathname = usePathname();
             const classId = pathname.replace('/home/', '');
             const [groupName, setGroupName] = useState<string>('');
+            const [isLoading, setIsLoading] = useState<boolean>(false);
+            const [open, setOpen] = useState<boolean>(false);
+            const [openDialog, setOpenDialog] = useState<boolean>(false);
+
+            async function editGroup (
+                groupId: string,
+                newGroupName: string,
+                event: FormEvent,
+                classId: string
+            ) {
+                event.preventDefault();
+
+                setIsLoading(true);
+                try {
+                    const response = await axios.put(
+                        '/api/group',
+                        { groupId, newGroupName, classId }
+                    );
+
+                    if (response.status !== 200) {
+                        toast({
+                            variant: "destructive",
+                            title: "Uh oh! Something went wrong.",
+                            description: "There was a problem with your request.",
+                        });
+                        setOpenDialog(false);
+                        setIsLoading(false);
+
+                        console.log(response);
+                    } else {
+                        toast({
+                            description: `Group has been edited to '${response.data.name}'.`,
+                        });
+                        setOpenDialog(false);
+                        setIsLoading(false);
+                    }
+                } catch (err) {
+                    toast({
+                        variant: "destructive",
+                        title: "Uh oh! Something went wrong.",
+                        description: "You are not authorized.",
+                    });
+                    setOpenDialog(false);
+                    setIsLoading(false);
+
+                    console.log(err)
+                }
+            }
+
+            async function deleteGroup (groupId: string, classId: string) {
+                try {
+                    setIsLoading(true);
+                    const response = await axios.delete(
+                        '/api/group',
+                        {
+                            data: { id: groupId, classId }
+                        }
+                    );
+                    if (response.status !== 200) {
+                        toast({
+                            variant: "destructive",
+                            title: "Uh oh! Something went wrong.",
+                            description: "There was a problem with your request.",
+                        });
+                        setOpen(false);
+                        setIsLoading(false);
+
+                        console.log(response);
+                    } else {
+                        toast({
+                            description: `Group '${response.data.name}' has been deleted.`,
+                        });
+                        setOpen(false);
+                        setIsLoading(false);
+                    }
+                } catch (err) {
+                    toast({
+                        variant: "destructive",
+                        title: "Uh oh! Something went wrong.",
+                        description: "You are not authorized.",
+                    });
+                    setOpen(false);
+                    setIsLoading(false);
+
+                    console.log(err)
+                }
+            }
 
             return (
                 <DropdownMenu>
-                    <AlertDialog>
-                        <Dialog>
+                    <AlertDialog open={open} onOpenChange={setOpen}>
+                        <Dialog open={openDialog} onOpenChange={setOpenDialog}>
                             <DropdownMenuTrigger asChild className='z-20'>
                                 <Button variant="ghost" className="h-8 w-8 p-0 z-20">
                                     <span className="sr-only">Open menu</span>
@@ -196,17 +214,19 @@ export const columns: ColumnDef<Group>[] = [
                                                 onChange={e => setGroupName(e.target.value)}
                                                 value={groupName}
                                                 className="col-span-3"
+                                                required
                                             />
                                         </div>
                                     </div>
                                     <DialogFooter>
-                                        <DialogClose asChild>
-                                            <Button
-                                                type="submit"
-                                            >
-                                                Save changes
-                                            </Button>
-                                        </DialogClose>
+                                        <Button
+                                            type="submit"
+                                            onClick={() => setOpenDialog(true)}
+                                            disabled={isLoading}
+                                        >
+                                            { isLoading && <Spinner /> }
+                                            { isLoading ? 'Saving...' : 'Save changes' }
+                                        </Button>
                                     </DialogFooter>
                                 </form>
                             </DialogContent>
@@ -221,12 +241,16 @@ export const columns: ColumnDef<Group>[] = [
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
                                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                    <AlertDialogAction onClick={ async () => {
+                                    <Button onClick={ async () => {
+                                        setOpen(true);
                                         await deleteGroup(row.getValue('id'), classId);
                                         router.refresh();
-                                    }}>
-                                        Continue
-                                    </AlertDialogAction>
+                                    }}
+                                            disabled={isLoading}
+                                    >
+                                        { isLoading && <Spinner /> }
+                                        { isLoading ? 'Deleting...' : 'Continue' }
+                                    </Button>
                                 </AlertDialogFooter>
                             </AlertDialogContent>
                         </Dialog>

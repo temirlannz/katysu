@@ -18,6 +18,7 @@ import {Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger} from "@/
 import axios from "axios";
 import {toast} from "@/components/ui/use-toast";
 import {usePathname, useRouter} from "next/navigation";
+import Spinner from "@/components/ui/spinner";
 
 interface responseData {
     status: number
@@ -40,6 +41,8 @@ const NewStudent = () => {
     const [message, setMessage] = useState<string>('');
     const router = useRouter();
     const pathname = usePathname();
+    const [open, setOpen] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -51,6 +54,7 @@ const NewStudent = () => {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
+            setIsLoading(true);
             const classAndGroupId: string[] = pathname.replace('/home/', '').split('/');
             const classId: string = classAndGroupId[0];
             const groupId: string = classAndGroupId[1];
@@ -69,22 +73,33 @@ const NewStudent = () => {
                     title: "Uh oh! Something went wrong.",
                     description: "There was a problem with your request.",
                 });
+                setOpen(false);
+                setIsLoading(false);
             } else {
                 router.refresh();
 
                 toast({
                     description: `Student '${response.data.name} ${response.data.surname}' has been added.`,
                 });
+                setOpen(false);
+                setIsLoading(false);
             }
 
             return response;
         } catch (error) {
-            setMessage('An error occurred while uploading the image.');
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong.",
+                description: "You are not authorized.",
+            });
+            console.log(error);
+            setOpen(false);
+            setIsLoading(false);
         }
     }
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button variant='ghost' className='gap-x-2' >
                     <Plus size={18} />
@@ -125,11 +140,14 @@ const NewStudent = () => {
                             />
                         </div>
 
-                        <DialogClose asChild>
-                            <Button type="submit">
-                                Submit
-                            </Button>
-                        </DialogClose>
+                        <Button
+                            type="submit"
+                            onClick={() => setOpen(true)}
+                            disabled={isLoading}
+                        >
+                            { isLoading && <Spinner /> }
+                            { isLoading ? 'Submitting...' : 'Submit' }
+                        </Button>
                     </form>
                 </Form>
             </DialogContent>

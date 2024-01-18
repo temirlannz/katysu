@@ -19,6 +19,7 @@ import axios from "axios";
 import {toast} from "@/components/ui/use-toast";
 import {usePathname, useRouter} from "next/navigation";
 import {auth} from "@clerk/nextjs";
+import Spinner from "@/components/ui/spinner";
 
 interface responseData {
     status: number
@@ -38,6 +39,8 @@ const NewGroup = () => {
     const [message, setMessage] = useState<string>('');
     const router = useRouter();
     const pathname = usePathname();
+    const [open, setOpen] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -48,6 +51,7 @@ const NewGroup = () => {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
+            setIsLoading(true);
             const classId = pathname.replace('/home/', '');
 
             const response: responseData = await axios.post(
@@ -63,22 +67,33 @@ const NewGroup = () => {
                     title: "Uh oh! Something went wrong.",
                     description: "There was a problem with your request.",
                 });
+                setOpen(false);
+                setIsLoading(false);
             } else {
                 router.refresh();
 
                 toast({
                     description: `Group ${response.data.name} has been created.`,
                 });
+                setOpen(false);
+                setIsLoading(false);
             }
 
             return response;
         } catch (error) {
-            setMessage('An error occurred while uploading the image.');
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong.",
+                description: "You are not authorized.",
+            });
+            console.log(error);
+            setOpen(false);
+            setIsLoading(false);
         }
     }
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button variant='ghost' className='gap-x-2' >
                     <Plus size={18} />
@@ -104,9 +119,15 @@ const NewGroup = () => {
                                 </FormItem>
                             )}
                         />
-                        <DialogClose asChild>
-                            <Button type="submit">Submit</Button>
-                        </DialogClose>
+
+                        <Button
+                            type="submit"
+                            onClick={() => setOpen(true)}
+                            disabled={isLoading}
+                        >
+                            { isLoading && <Spinner /> }
+                            { isLoading ? 'Submitting...' : 'Submit' }
+                        </Button>
                     </form>
                 </Form>
             </DialogContent>

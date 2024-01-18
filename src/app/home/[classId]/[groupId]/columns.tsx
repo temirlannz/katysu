@@ -32,6 +32,7 @@ import {Input} from "@/components/ui/input";
 import {useRouter, usePathname} from "next/navigation";
 import axios from "axios";
 import {toast} from "@/components/ui/use-toast";
+import Spinner from "@/components/ui/spinner";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -57,93 +58,6 @@ interface responseData {
         surname: string
     },
     status: number
-}
-
-async function editStudent(
-    studentId: string,
-    studentName: string,
-    studentSurname: string,
-    groupId: string,
-    classId: string,
-    event: FormEvent,
-) {
-    event.preventDefault();
-
-    try {
-        const response: responseData = await axios.put(
-            '/api/student',
-            {
-                studentId,
-                studentName,
-                studentSurname,
-                groupId,
-                classId,
-            }
-        );
-        console.log(response)
-
-        if (response.status !== 200) {
-            toast({
-                variant: "destructive",
-                title: "Uh oh! Something went wrong.",
-                description: "There was a problem with your request.",
-            });
-
-            console.log(response);
-        } else {
-            toast({
-                description: `Student has been edited to '${response.data.name} ${response.data.surname}'.`,
-            });
-        }
-    } catch (err) {
-        toast({
-            variant: "destructive",
-            title: "Uh oh! Something went wrong.",
-            description: "You are not authorized.",
-        });
-
-        console.log(err)
-    }
-}
-
-async function deleteStudent(
-    studentId: string,
-    groupId: string,
-    classId: string,
-) {
-    try {
-        const response = await axios.delete(
-            '/api/student',
-            {
-                data: {
-                    studentId,
-                    groupId,
-                    classId,
-                }
-            }
-        );
-        if (response.status !== 200) {
-            toast({
-                variant: "destructive",
-                title: "Uh oh! Something went wrong.",
-                description: "There was a problem with your request.",
-            });
-
-            console.log(response);
-        } else {
-            toast({
-                description: `Student '${response.data.name}' has been deleted.`,
-            });
-        }
-    } catch (err) {
-        toast({
-            variant: "destructive",
-            title: "Uh oh! Something went wrong.",
-            description: "You are not authorized.",
-        });
-
-        console.log(err)
-    }
 }
 
 export const columns: ColumnDef<Student>[] = [
@@ -200,10 +114,114 @@ export const columns: ColumnDef<Student>[] = [
             const classId: string = classAndGroupId[0];
             const groupId: string = classAndGroupId[1];
 
+            const [isLoading, setIsLoading] = useState<boolean>(false);
+            const [open, setOpen] = useState<boolean>(false);
+            const [openDialog, setOpenDialog] = useState<boolean>(false);
+
+            async function editStudent(
+                studentId: string,
+                studentName: string,
+                studentSurname: string,
+                groupId: string,
+                classId: string,
+                event: FormEvent,
+            ) {
+                event.preventDefault();
+
+                setIsLoading(true);
+                try {
+                    const response: responseData = await axios.put(
+                        '/api/student',
+                        {
+                            studentId,
+                            studentName,
+                            studentSurname,
+                            groupId,
+                            classId,
+                        }
+                    );
+
+                    if (response.status !== 200) {
+                        toast({
+                            variant: "destructive",
+                            title: "Uh oh! Something went wrong.",
+                            description: "There was a problem with your request.",
+                        });
+                        setOpenDialog(false);
+                        setIsLoading(false);
+
+                        console.log(response);
+                    } else {
+                        toast({
+                            description: `Student has been edited to '${response.data.name} ${response.data.surname}'.`,
+                        });
+                        setOpenDialog(false);
+                        setIsLoading(false);
+                    }
+                } catch (err) {
+                    toast({
+                        variant: "destructive",
+                        title: "Uh oh! Something went wrong.",
+                        description: "You are not authorized.",
+                    });
+                    setOpenDialog(false);
+                    setIsLoading(false);
+
+                    console.log(err)
+                }
+            }
+
+            async function deleteStudent(
+                studentId: string,
+                groupId: string,
+                classId: string,
+            ) {
+                try {
+                    setIsLoading(true);
+                    const response = await axios.delete(
+                        '/api/student',
+                        {
+                            data: {
+                                studentId,
+                                groupId,
+                                classId,
+                            }
+                        }
+                    );
+                    if (response.status !== 200) {
+                        toast({
+                            variant: "destructive",
+                            title: "Uh oh! Something went wrong.",
+                            description: "There was a problem with your request.",
+                        });
+                        setOpen(false);
+                        setIsLoading(false);
+
+                        console.log(response);
+                    } else {
+                        toast({
+                            description: `Student '${response.data.name}' has been deleted.`,
+                        });
+                        setOpen(false);
+                        setIsLoading(false);
+                    }
+                } catch (err) {
+                    toast({
+                        variant: "destructive",
+                        title: "Uh oh! Something went wrong.",
+                        description: "You are not authorized.",
+                    });
+                    setOpen(false);
+                    setIsLoading(false);
+
+                    console.log(err)
+                }
+            }
+
             return (
                 <DropdownMenu>
-                    <AlertDialog>
-                        <Dialog>
+                    <AlertDialog open={open} onOpenChange={setOpen}>
+                        <Dialog open={openDialog} onOpenChange={setOpenDialog}>
                             <DropdownMenuTrigger asChild className='z-20'>
                                 <Button variant="ghost" className="h-8 w-8 p-0 z-20">
                                     <span className="sr-only">Open menu</span>
@@ -253,6 +271,7 @@ export const columns: ColumnDef<Student>[] = [
                                                 onChange={e => setStudentName(e.target.value)}
                                                 value={studentName}
                                                 className="col-span-3"
+                                                required
                                             />
                                             <Label className="text-left">
                                                 Surname
@@ -263,17 +282,19 @@ export const columns: ColumnDef<Student>[] = [
                                                 onChange={e => setStudentSurname(e.target.value)}
                                                 value={studentSurname}
                                                 className="col-span-3"
+                                                required
                                             />
                                         </div>
                                     </div>
                                     <DialogFooter>
-                                        <DialogClose asChild>
-                                            <Button
-                                                type="submit"
-                                            >
-                                                Save changes
-                                            </Button>
-                                        </DialogClose>
+                                        <Button
+                                            type="submit"
+                                            onClick={() => setOpenDialog(true)}
+                                            disabled={isLoading}
+                                        >
+                                            { isLoading && <Spinner /> }
+                                            { isLoading ? 'Saving...' : 'Save changes' }
+                                        </Button>
                                     </DialogFooter>
                                 </form>
                             </DialogContent>
@@ -288,16 +309,20 @@ export const columns: ColumnDef<Student>[] = [
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
                                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                    <AlertDialogAction onClick={ async () => {
+                                    <Button onClick={ async () => {
+                                        setOpen(true);
                                         await deleteStudent(
                                             row.getValue('id'),
                                             groupId,
                                             classId,
                                         );
                                         router.refresh();
-                                    }}>
-                                        Continue
-                                    </AlertDialogAction>
+                                    }}
+                                                       disabled={isLoading}
+                                    >
+                                        { isLoading && <Spinner /> }
+                                        { isLoading ? 'Deleting...' : 'Continue' }
+                                    </Button>
                                 </AlertDialogFooter>
                             </AlertDialogContent>
                         </Dialog>
