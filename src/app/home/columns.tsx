@@ -47,7 +47,7 @@ export type Class = {
     }
 }
 
-let groupOfId: string[] = [];
+let groups: number[] = [];
 
 export const columns: ColumnDef<Class>[] = [
     {
@@ -62,26 +62,30 @@ export const columns: ColumnDef<Class>[] = [
         accessorKey: "count",
         header: "Group count",
         cell: function CellFn ({ row }) {
+            const classId = row.getValue('id');
+            const [total, setTotal] = useState<{ total: number }>({ total: 0 });
+            const [isLoading, setIsLoading] = useState<boolean>(false);
 
-            groupOfId.push(row.getValue('id'));
-            groupOfId = groupOfId.filter((id, index) => groupOfId.indexOf(id) === index);
-
-            const [count, setCount] = useState<number[]>([]);
+            async function getCount() {
+                try {
+                    setIsLoading(true);
+                    const data = await axios
+                        .get('/api/class', {params: {classId}})
+                        .then(res => {
+                            setTotal(res.data)
+                            setIsLoading(false)
+                        });
+                } catch (error) {
+                    console.log(error);
+                    setIsLoading(false);
+                }
+            }
 
             useEffect(() => {
-                async function getCount() {
-                    const response = await axios.get(
-                        '/api/class',
-                        { params: groupOfId }
-                    ).then(data => setCount(data.data))
-                }
-
                 getCount();
             }, []);
 
-            row.original.count = count[0]
-
-            return row.original.count
+            return <>{isLoading ? <Spinner className='text-black' /> : total.total}</>
         }
     },
     {

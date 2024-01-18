@@ -99,23 +99,13 @@ export async function PUT(req: Request) {
 }
 
 export async function GET(req: NextRequest) {
-    const groupOfId = req.nextUrl.searchParams;
-    const idArr: string[] = [];
-    let count: number[] = [];
+    const classId = req.nextUrl.searchParams.get('classId');
 
-    groupOfId.forEach(item => {
-        idArr.push(item)
+    const records = await xata.db.group.filter({ classes: classId }).summarize({
+        summaries: {
+            "total": {"count": "*"}
+        }
     });
 
-    for (let i = 0; i < idArr.length; i++) {
-        const groups = await xata.db.group.filter({ classes: idArr[i] }).summarize({
-            summaries: {
-                "total": {"count": "*"}
-            }
-        });
-
-        count.push(groups.summaries[0].total);
-    }
-
-    return NextResponse.json(count);
+    return NextResponse.json({classId, total: records.summaries[0].total})
 }
