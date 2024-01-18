@@ -19,6 +19,7 @@ import axios from "axios";
 import {toast} from "@/components/ui/use-toast";
 import {useRouter} from "next/navigation";
 import {auth} from "@clerk/nextjs";
+import Spinner from "@/components/ui/spinner";
 
 interface responseData {
     status: number
@@ -37,6 +38,8 @@ const formSchema = z.object({
 const NewClass = () => {
     const [message, setMessage] = useState<string>('');
     const router = useRouter();
+    const [open, setOpen] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -47,6 +50,7 @@ const NewClass = () => {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
+            setIsLoading(true);
             const response: responseData = await axios.post(
                 'http://localhost:3000/api/class',
                 {values}
@@ -57,12 +61,16 @@ const NewClass = () => {
                     title: "Uh oh! Something went wrong.",
                     description: "There was a problem with your request.",
                 });
+                setOpen(false);
+                setIsLoading(false);
             } else {
                 router.refresh();
 
                 toast({
                     description: `Class ${response.data.name} has been created.`,
                 });
+                setOpen(false);
+                setIsLoading(false);
             }
 
             return response;
@@ -72,13 +80,15 @@ const NewClass = () => {
                 title: "Uh oh! Something went wrong.",
                 description: "You are not authorized.",
             });
+            setOpen(false);
+            setIsLoading(false);
 
             console.log(error)
         }
     }
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button variant='ghost' className='gap-x-2' >
                     <Plus size={18} />
@@ -104,9 +114,14 @@ const NewClass = () => {
                                 </FormItem>
                             )}
                         />
-                        <DialogClose asChild>
-                            <Button type="submit">Submit</Button>
-                        </DialogClose>
+                        <Button
+                            type="submit"
+                            onClick={() => setOpen(true)}
+                            disabled={isLoading}
+                        >
+                            { isLoading && <Spinner /> }
+                            { isLoading ? 'Submitting...' : 'Submit' }
+                        </Button>
                     </form>
                 </Form>
             </DialogContent>
