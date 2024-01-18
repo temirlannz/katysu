@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import {MoreHorizontal} from "lucide-react";
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -62,6 +62,32 @@ export const columns: ColumnDef<Group>[] = [
     {
         accessorKey: "count",
         header: "Student count",
+        cell: function CellFn ({ row }) {
+            const groupId = row.getValue('id');
+            const [total, setTotal] = useState<{ total: number }>({ total: 0 });
+            const [isLoading, setIsLoading] = useState<boolean>(false);
+
+            async function getCount() {
+                try {
+                    setIsLoading(true);
+                    const data = await axios
+                        .get('/api/group', {params: {groupId}})
+                        .then(res => {
+                            setTotal(res.data)
+                            setIsLoading(false)
+                        });
+                } catch (error) {
+                    console.log(error);
+                    setIsLoading(false);
+                }
+            }
+
+            useEffect(() => {
+                getCount();
+            }, []);
+
+            return <>{isLoading ? <Spinner className='text-black' /> : total.total}</>
+        }
     },
     {
         accessorKey: "xata.createdAt",

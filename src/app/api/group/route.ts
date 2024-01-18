@@ -87,3 +87,15 @@ export async function PUT(req: Request) {
 
     return NextResponse.json(editGroup);
 }
+
+export async function GET(req: NextRequest) {
+    const groupId = req.nextUrl.searchParams.get('groupId');
+
+    const records = await xata.db.student.filter({ group: groupId }).summarize({
+        summaries: {
+            "total": {"count": "*"}
+        }
+    });
+
+    return NextResponse.json({groupId, total: records.summaries[0].total})
+}
