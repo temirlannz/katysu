@@ -60,7 +60,7 @@ const NewStudent = () => {
             const groupId: string = classAndGroupId[1];
 
             const response: responseData = await axios.post(
-                'http://localhost:3000/api/student',
+                '/api/student',
                 {
                     values,
                     classId,

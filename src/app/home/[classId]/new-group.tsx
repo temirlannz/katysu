@@ -55,7 +55,7 @@ const NewGroup = () => {
             const classId = pathname.replace('/home/', '');
 
             const response: responseData = await axios.post(
-                'http://localhost:3000/api/group',
+                '/api/group',
                 {
                     values,
                     classId,
