@@ -3,7 +3,7 @@ import {Button} from "@/components/ui/button";
 
 const Hero = () => {
     return (
-        <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 text-center lg:pt-32 pb-24'>
+        <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 text-center lg:pt-32 pb-24 h-[calc(100vh-174px)] flex flex-col items-center justify-center'>
             <h1 className='mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl'>
                 Attendance checker <br/>
                 <span className='relative whitespace-nowrap text-blue-600'>
@@ -17,9 +17,9 @@ const Hero = () => {
                 An application for attendance tracking, no papers are needed now and the data is securely stored.
             </p>
 
-            <div className="mt-10 flex justify-center gap-x-6">
-                <Button>Get 6 month free</Button>
-            </div>
+            {/*<div className="mt-10 flex justify-center gap-x-6">*/}
+            {/*    <Button>Get 6 month free</Button>*/}
+            {/*</div>*/}
         </div>
     )
 }

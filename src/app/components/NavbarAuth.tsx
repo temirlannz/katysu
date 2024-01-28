@@ -10,7 +10,6 @@ const NavbarAuth = () => {
                 <div className='flex items-center justify-between md:gap-x-12'>
                     <Link href='/' className='flex items-center gap-2'>
                         <UserPlus
-
                         />
                         Katysu
                     </Link>

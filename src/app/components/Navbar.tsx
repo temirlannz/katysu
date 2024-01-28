@@ -37,19 +37,19 @@ const Navbar = () => {
                         Katysu
                     </Link>
 
-                    <div className="hidden md:flex md:gap-x-6">
-                        <Link href='/features' className='text-sm text-slate-500 hover:text-black transition'>
-                            Features
-                        </Link>
+                    {/*<div className="hidden md:flex md:gap-x-6">*/}
+                    {/*    <Link href='/features' className='text-sm text-slate-500 hover:text-black transition'>*/}
+                    {/*        Features*/}
+                    {/*    </Link>*/}
 
-                        <Link href='/testimonials' className='text-sm text-slate-500 hover:text-black transition'>
-                            Testimonials
-                        </Link>
+                    {/*    <Link href='/testimonials' className='text-sm text-slate-500 hover:text-black transition'>*/}
+                    {/*        Testimonials*/}
+                    {/*    </Link>*/}
 
-                        <Link href='/pricing' className='text-sm text-slate-500 hover:text-black transition'>
-                            Pricing
-                        </Link>
-                    </div>
+                    {/*    <Link href='/pricing' className='text-sm text-slate-500 hover:text-black transition'>*/}
+                    {/*        Pricing*/}
+                    {/*    </Link>*/}
+                    {/*</div>*/}
                 </div>
 
                 <div className='flex gap-x-6 items-center'>
