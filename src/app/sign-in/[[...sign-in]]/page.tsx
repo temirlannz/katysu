@@ -12,8 +12,10 @@ const Page = () => {
                 <SignIn
                     appearance={{
                         elements: {
-                            card: 'rounded-md shadow-md',
-                            formButtonPrimary: 'bg-primary hover:bg-primary/90'
+                            card: 'rounded-md px-4 bg-[#F9F9F9] shadow-none sm:bg-white sm:shadow-md sm:px-8',
+                            formButtonPrimary: 'bg-primary hover:bg-primary/90',
+                            headerTitle: 'text-base sm:text-[20px]',
+                            headerSubtitle: 'text-sm sm:text-base'
                         }
                     }}
                     signUpUrl='/sign-up'
