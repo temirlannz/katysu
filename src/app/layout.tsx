@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-        <html lang="en">
+        <html lang="en" className='overflow-hidden'>
             <body className={inter.className}>
                 <header className='py-10'>
                     <Navbar />
