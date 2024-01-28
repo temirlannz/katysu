@@ -15,7 +15,7 @@ const featuresInfo = [
         img: classes
     },
     {
-        title: 'Groups',
+        title: 'Keep groups',
         description: 'Keep track of everyone&apos;s salaries and whether or not they&apos;ve been paid. Direct deposit not supported.',
         img: groups
     },
@@ -45,10 +45,10 @@ const Features = () => {
             <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative'>
                 <div className="max-w-2xl md:mx-auto md:text-center xl:max-w-none">
                     <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl md:text-5xl">
-                        Everything you need to run your books.
+                        Everything you need to keep your students attendance.
                     </h2>
                     <p className="mt-6 text-lg tracking-tight text-blue-100">
-                        Well everything you need if you aren&apos;t that picky about minor details like tax compliance.
+                        Clean and ready tables with handy features are waiting for you.
                     </p>
                 </div>
 

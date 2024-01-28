@@ -4,7 +4,7 @@ import {Skeleton} from "@/components/ui/skeleton";
 const LoadingSkeleton = () => {
     return (
         <div>
-            <Skeleton className='w-[384px] h-[36px] mb-2' />
+            <Skeleton className='w-[200px] sm:w-[384px] h-[36px] mb-2' />
 
             <div className='flex flex-col gap-y-1'>
                 <Skeleton className='w-full h-[40px]' />

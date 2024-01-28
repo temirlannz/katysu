@@ -217,7 +217,7 @@ export function DataTable<TData extends studentPresentData, TValue>({
                                 id="date"
                                 variant={"outline"}
                                 className={cn(
-                                    "w-[300px] justify-start text-left font-normal pl-2",
+                                    "sm:w-[300px] w-[200px] justify-start text-left font-normal pl-2",
                                     !currentDate && "text-muted-foreground"
                                 )}
                             >
@@ -248,7 +248,7 @@ export function DataTable<TData extends studentPresentData, TValue>({
                         onChange={(event) =>
                             table.getColumn("name")?.setFilterValue(event.target.value)
                         }
-                        className="max-w-sm"
+                        className="max-w-sm hidden sm:block"
                     />
 
                     <TooltipProvider>
@@ -319,7 +319,7 @@ export function DataTable<TData extends studentPresentData, TValue>({
                 <div className="flex-1 text-sm text-muted-foreground">
                     <Button
                         variant={ currentDate ? 'default' : 'outline' }
-                        className='mr-2 disabled:opacity-100 disabled:text-muted-foreground disabled:font-medium'
+                        className='mr-2 disabled:opacity-100 disabled:text-muted-foreground disabled:font-medium block mb-1 sm:inline'
                         disabled={!currentDate || isLoading || students.length === 0}
                         onClick={async () => {
 
@@ -347,8 +347,10 @@ export function DataTable<TData extends studentPresentData, TValue>({
                         {isLoading && <Spinner />}
                         {isLoading ? 'Submitting...' : 'Submit'}
                     </Button>
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} student(s) present.
+                    <span>
+                        {table.getFilteredSelectedRowModel().rows.length} of{" "}
+                        {table.getFilteredRowModel().rows.length} student(s) present.
+                    </span>
                 </div>
 
                 <Button
