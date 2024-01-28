@@ -17,6 +17,7 @@ export default async function Home() {
                     autoPlay
                     loop
                     muted
+                    playsInline
                     className='absolute -z-10 mix-blend-difference w-full h-full object-cover blur-2xl'
                 >
                 </video>
