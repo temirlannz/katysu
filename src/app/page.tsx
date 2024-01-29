@@ -18,7 +18,7 @@ export default async function Home() {
                     loop
                     muted
                     playsInline
-                    className='absolute -z-10 mix-blend-difference w-full h-full object-cover blur-2xl'
+                    className='absolute -z-10 mix-blend-difference w-full h-full object-cover blur-lg sm:blur-2xl'
                 >
                 </video>
             </div>
