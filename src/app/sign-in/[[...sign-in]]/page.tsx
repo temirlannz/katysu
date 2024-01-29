@@ -4,7 +4,7 @@ import LoadingAuth from "@/app/components/LoadingAuth";
 
 const Page = () => {
     return (
-        <section className='flex justify-center items-center h-[calc(100vh-120px)]'>
+        <section className='flex justify-center items-center h-[calc(100vh-76px)] sm:h-[calc(100vh-116px)]'>
             <ClerkLoading>
                 <LoadingAuth />
             </ClerkLoading>
