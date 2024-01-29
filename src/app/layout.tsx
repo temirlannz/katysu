@@ -21,7 +21,7 @@ export default function RootLayout({
     <ClerkProvider>
         <html lang="en" className='overflow-hidden'>
             <body className={inter.className}>
-                <header className='py-10'>
+                <header className='py-5 sm:py-10'>
                     <Navbar />
                 </header>
                 <main>
