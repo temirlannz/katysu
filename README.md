@@ -1,5 +1,20 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+Based on serverless database platform powered by PostgreSQL [xata.io](https://xata.io/), nice and smooth authorization and authentication with [CLerk](https://clerk.com/), unified UI/UX with Shadcn-UI & TailwindCSS.
+
+<img width="1800" alt="Screenshot 2024-01-31 at 18 20 47" src="https://github.com/temirlannz/katysu/assets/153745312/2320b60f-6f5a-4a91-a6f4-0e8315163b14">
+
+## Create classes
+<img width="1800" alt="Screenshot 2024-01-31 at 18 24 12" src="https://github.com/temirlannz/katysu/assets/153745312/73045486-ed7a-48e8-aab8-61450b37d704">
+
+## Organize your groups 
+<img width="1800" alt="Screenshot 2024-01-31 at 18 25 19" src="https://github.com/temirlannz/katysu/assets/153745312/60264485-fefe-4a49-be74-19a11c6aad31">
+
+## Track students attendance with nicely styled UI/UX, download attendance to excel sheet, pick a date and more... 
+<img width="1800" alt="Screenshot 2024-01-31 at 18 25 28" src="https://github.com/temirlannz/katysu/assets/153745312/44c6443d-bfe9-4f54-b2e1-fff3e092da82">
+
+
+
 ## Getting Started
 
 First, run the development server:
