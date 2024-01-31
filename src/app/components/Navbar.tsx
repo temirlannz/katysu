@@ -52,7 +52,7 @@ const Navbar = () => {
                     {/*</div>*/}
                 </div>
 
-                <div className='flex gap-x-6 items-center'>
+                <div className='flex gap-x-3 sm:gap-x-6 items-center'>
                     <Link href='/sign-in' className='text-sm text-slate-500 hover:text-black transition'>
                         Sign-in
                     </Link>
