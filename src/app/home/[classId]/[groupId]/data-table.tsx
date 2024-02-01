@@ -316,10 +316,10 @@ export function DataTable<TData extends studentPresentData, TValue>({
             </div>
 
             <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="flex-1 text-sm text-muted-foreground">
+                <div className="flex-1 text-sm text-muted-foreground sm:flex sm:items-center">
                     <Button
                         variant={ currentDate ? 'default' : 'outline' }
-                        className='mr-2 disabled:opacity-100 disabled:text-muted-foreground disabled:font-medium block mb-1 sm:inline'
+                        className='mr-2 disabled:opacity-100 disabled:text-muted-foreground disabled:font-medium mb-1 flex'
                         disabled={!currentDate || isLoading || students.length === 0}
                         onClick={async () => {
 
