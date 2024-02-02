@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from "@/app/components/Navbar";
 import {ClerkProvider} from "@clerk/nextjs";
 import {Toaster} from "@/components/ui/toaster";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,6 +29,7 @@ export default function RootLayout({
                     { children }
                 </main>
                 <Toaster />
+                <SpeedInsights/>
             </body>
         </html>
     </ClerkProvider>
