@@ -5,6 +5,7 @@ import Navbar from "@/app/components/Navbar";
 import {ClerkProvider} from "@clerk/nextjs";
 import {Toaster} from "@/components/ui/toaster";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,6 +31,7 @@ export default function RootLayout({
                 </main>
                 <Toaster />
                 <SpeedInsights/>
+                <Analytics />
             </body>
         </html>
     </ClerkProvider>

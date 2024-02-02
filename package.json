@@ -21,6 +21,7 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@tanstack/react-table": "^8.11.3",
+    "@vercel/analytics": "^1.1.2",
     "@vercel/speed-insights": "^1.0.9",
     "@xata.io/client": "^0.28.3",
     "axios": "^1.6.5",
