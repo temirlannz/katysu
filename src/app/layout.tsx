@@ -21,14 +21,16 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-        <html lang="en" className='overflow-hidden'>
+        <html lang="en">
             <body className={inter.className}>
-                <header className='py-5 sm:py-10'>
-                    <Navbar />
-                </header>
-                <main>
-                    { children }
-                </main>
+                <div className='mx-auto w-full'>
+                    <header className='py-5 sm:py-10'>
+                        <Navbar />
+                    </header>
+                    <main>
+                        { children }
+                    </main>
+                </div>
                 <Toaster />
                 <SpeedInsights/>
                 <Analytics />
